@@ -2,11 +2,17 @@ from django.shortcuts import render
 import requests
 import os
 
-from .helpers import searchWord
+from .helpers import searchWord,word_of_the_day
 
 def home(request):
 
-    context={}
+    word_of_day=word_of_the_day()
+
+    context={
+        'method':'GET',
+        'word':word_of_day['word'],
+        'definition':word_of_day['definition']
+    }
 
     if request.method=='POST':
 
@@ -15,10 +21,10 @@ def home(request):
 
         result=searchWord(user_word)
 
-        print(result)
        
         try:
             context={
+                'method':'POST',
                 'search_word':result['word'],
                 'results':result['results'],
                 'pronunciations':result['pronunciation']
@@ -29,8 +35,6 @@ def home(request):
                 'error':result['message'],
                 'failure': True
             }
-
-       
 
     return render(request,'dictionary_app/index.html',context=context)
     

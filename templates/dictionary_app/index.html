@@ -23,6 +23,8 @@
             </form>
         </div>
     </div>
+    {% if method == 'GET' %}
+
     <div class="row mt-4 text-center">
         <div class="col-md-3">
 
@@ -33,15 +35,16 @@
                     <u>Word of the day</u>
                 </h3>
                 <h4 class="mb-2">
-                    Word
+                    {{word}}
                 </h4>
                 <p class="mb-2">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda tenetur veniam voluptatem laboriosam accusantium explicabo, 
+                    {{definition}}
                 </p>
             </div>
         </div>
 
     </div>
+    {% endif %}
     <div class="row mt-5">
         <div class="col-md-2">
 
@@ -50,7 +53,10 @@
         {% if failure %}
          <h2 class='text-center'>{{error}}</h2>
         {% else %}
-        
+            {% if method == 'POST' %}
+            
+           
+           
             <h2>
                 Search result
             </h2>
@@ -65,8 +71,7 @@
                 </div>
             </div>
             {% for definition in results %}
-            
-            
+                      
             <div class="definitions mt-5">
                 <h6>Defintion:</h6>
                 <p><div class="5">{{definition.definition}}</div></p>
@@ -98,7 +103,10 @@
                         
                     </div>                </div>
             </div>
+             
+            
             {% endfor %}
+            {% endif %}
         </div>  
         {% endif %}  
     </div>
